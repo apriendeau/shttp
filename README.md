@@ -40,4 +40,5 @@ func main() {
 	if err := http.ListenAndServe(":8000", mux); err != nil {
 		log.Panic(err)
 	}
+}
 ```
