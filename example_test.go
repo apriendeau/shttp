@@ -9,7 +9,6 @@ import (
 
 func ExampleWrite() {
 	handler := func(w http.ResponseWriter, r *http.Request) {
-
 		message := struct {
 			Message string `json:"message"`
 		}{"I received your request."}
@@ -18,9 +17,29 @@ func ExampleWrite() {
 			log.Panic(err)
 		}
 	}
-	mux := http.NewServeMux()
-	mux.HandleFunc("/post", handler)
-	if err := http.ListenAndServe(":8000", mux); err != nil {
+
+	http.HandleFunc("/post", handler)
+	if err := http.ListenAndServe(":8000", nil); err != nil {
+		log.Panic(err)
+	}
+}
+
+func ExampleRead() {
+	// Simple mimic server
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		// parsing for example sake
+		body := make(map[string]interface{})
+		if err := shttp.Read(r, &body); err != nil {
+			log.Panic(err)
+		}
+		// send body back to mimic
+		if err := shttp.Write(w, r, body, 200); err != nil {
+			log.Panic(err)
+		}
+	}
+
+	http.HandleFunc("/post", handler)
+	if err := http.ListenAndServe(":8000", nil); err != nil {
 		log.Panic(err)
 	}
 }
