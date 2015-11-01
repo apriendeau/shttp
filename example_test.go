@@ -7,7 +7,7 @@ import (
 	"github.com/apriendeau/shttp"
 )
 
-func ExampleWrite() {
+func ExampleReadAndWrite() {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		body := make(map[string]string)
 		if err := shttp.Read(r, &body); err != nil {
