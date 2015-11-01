@@ -7,19 +7,12 @@ import (
 	"github.com/apriendeau/shttp"
 )
 
-func ExampleReadAndWrite() {
+func ExampleWrite() {
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		body := make(map[string]string)
-		if err := shttp.Read(r, &body); err != nil {
-			if err := shttp.Error(w, r, err, 422); err != nil {
-				log.Panic(err)
-			}
-		}
 
 		message := struct {
-			Message  string            `json:"message"`
-			Received map[string]string `json:"received"`
-		}{"I received your information.", body}
+			Message string `json:"message"`
+		}{"I received your request."}
 
 		if err := shttp.Write(w, r, message, 200); err != nil {
 			log.Panic(err)
