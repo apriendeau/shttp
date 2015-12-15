@@ -6,6 +6,10 @@ but I wanted to add helpers on top of it to cover my API use cases.
 The [godoc](https://godoc.org/github.com/apriendeau/shttp) is more
 useful than here but here is a quick example.
 
+This is meant to not limit you in any way from what choosing your own
+router. I tend to lean towards [HTTPRouter](https://github.com/julienschmidt/httprouter)
+but choose your own flavor.
+
 ```go
 package main
 
